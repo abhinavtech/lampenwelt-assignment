@@ -3,9 +3,10 @@ import request from 'request'
 async function getListing(): Promise<unknown> {
     const options = {
         'method': 'GET',
+        // eslint-disable-next-line max-len
         'url': 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1&limit=100&convert=USD',
         'headers': {
-            'X-CMC_PRO_API_KEY': '7fe4315c-6eb7-4473-9f75-0ee159d7d20f'
+            'X-CMC_PRO_API_KEY': process.env.COIN_MARKET_CAP_API_KEY
         }
     };
 
