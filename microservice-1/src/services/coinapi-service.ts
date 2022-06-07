@@ -1,4 +1,5 @@
 import request from 'request'
+import { map } from '@models/coin-api.model'
 
 async function getListing(): Promise<unknown> {
     const options = {
@@ -13,7 +14,7 @@ async function getListing(): Promise<unknown> {
     return new Promise((resolve, reject) => {
         request(options, function (error, response) {
             if (error) reject(new Error(error))
-            resolve(response.body)
+            resolve(map(response.body))
         });
     })
 }

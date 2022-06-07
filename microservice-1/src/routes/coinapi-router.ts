@@ -14,7 +14,7 @@ export const p = {
 router.get(p.get, async (_: Request, res: Response): Promise<unknown> => {
     const result = await coinApiService.getListing()
     res.header('content-type', 'application/json')
-    return res.status(OK).end(result)
+    return res.status(OK).end(JSON.stringify(result))
 })
 
 export default router
