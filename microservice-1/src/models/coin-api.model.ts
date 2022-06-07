@@ -11,6 +11,17 @@ export interface IQuote {
     marketCap: number
 }
 
+export enum SortKeys {
+    PRICE = 'price',
+    MARKET_CAP = 'market_cap',
+    VOLUME_24H = 'volume_24h'
+}
+
+export const quoteKeys = {
+    price: 'price',
+    market_cap: 'marketCap',
+    volume_24h: 'volume24h'
+}
 
 export function map(result: any): ICrypto[] {
     const crypto = []

@@ -1,7 +1,7 @@
 import request from 'request'
-import { map } from '@models/coin-api.model'
+import {ICrypto, map, quoteKeys, SortKeys} from '@models/coin-api.model'
 
-async function getListing(): Promise<unknown> {
+async function getListing(sortKey: SortKeys = SortKeys.MARKET_CAP): Promise<unknown> {
     const options = {
         'method': 'GET',
         // eslint-disable-next-line max-len
@@ -11,12 +11,17 @@ async function getListing(): Promise<unknown> {
         }
     };
 
-    return new Promise((resolve, reject) => {
+    let result: ICrypto[] = await new Promise((resolve, reject) => {
         request(options, function (error, response) {
             if (error) reject(new Error(error))
             resolve(map(response.body))
         });
     })
+
+    // @ts-ignore
+    // eslint-disable-next-line max-len
+    result.sort((a: ICrypto, b: ICrypto) => b.quote[quoteKeys[sortKey]] - a.quote[quoteKeys[sortKey]])
+    return result.slice(0,10)
 }
 
 export default { getListing } as const
